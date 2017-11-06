@@ -3,7 +3,7 @@
 ## Packages
 
 - [@absinthe/socket](packages/socket)
-- [@absinthe/socket-apolo-link](packages/socket-apollo-link)
+- [@absinthe/socket-apollo-link](packages/socket-apollo-link)
 - [@absinthe/socket-relay](packages/socket-relay)
 
 ## License
