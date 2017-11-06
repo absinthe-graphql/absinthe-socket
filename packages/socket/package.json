@@ -1,0 +1,40 @@
+{
+  "name": "@absinthe/socket",
+  "version": "0.0.0",
+  "description": "Absinthe Socket",
+  "module": "dist/index.js",
+  "main": "compat/cjs/index.js",
+  "scripts": {
+    "version": "yarn run build:index && yarn run build:readme && git add README.md src/index.js",
+    "prepublishOnly": "yarn run build:clean && yarn run build:src && yarn run build:flow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absinthe-graphql/absinthe-socket.git"
+  },
+  "author": "Mauro Titimoli <mgtitimoli@gmail.com> (https://github.com/mgtitimoli)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/absinthe-graphql/absinthe-socket/issues"
+  },
+  "homepage": "https://github.com/absinthe-graphql/absinthe-socket#readme",
+  "keywords": [
+    "absinthe",
+    "phoenix",
+    "socket",
+    "client",
+    "graphql",
+    "utilities",
+    "utils"
+  ],
+  "dependencies": {
+    "@jumpn/utils-array": "0.3.4",
+    "@jumpn/utils-composite": "0.5.0",
+    "@jumpn/utils-graphql": "0.4.1",
+    "phoenix": "1.3.0",
+    "zen-observable": "0.6.0"
+  },
+  "devDependencies": {
+    "nps": "5.7.1"
+  }
+}

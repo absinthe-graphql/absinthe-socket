@@ -1,0 +1,34 @@
+---
+parser: babel-eslint
+
+extends:
+  - airbnb-base
+  - plugin:flowtype/recommended
+  - prettier
+  - prettier/flowtype
+
+env:
+  browser: true
+  es6: true
+
+plugins:
+  - flowtype
+  - flowtype-errors
+  - prettier
+
+rules:
+  no-param-reassign: [error, {props: false}]
+  no-restricted-syntax:
+    - error
+    - ForInStatement
+    - LabeledStatement
+    - WithStatement
+  no-shadow: off
+  no-underscore-dangle: off
+  no-unused-expressions: [error, {allowShortCircuit: true}]
+  no-useless-concat: off
+  prefer-template: warn
+  flowtype-errors/enforce-min-coverage: [warn, 80]
+  flowtype-errors/show-errors: off
+  import/prefer-default-export: warn
+  prettier/prettier: [error, {bracketSpacing: false}]

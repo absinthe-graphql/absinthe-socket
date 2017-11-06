@@ -1,0 +1,91 @@
+# <%= name %>
+
+> <%= description %>
+
+<!-- START doctoc -->
+<!-- END doctoc -->
+
+## Installation
+
+### Using [npm](https://docs.npmjs.com/cli/npm)
+
+```
+$ npm install --save <%= name %>
+```
+
+### Using [yarn](https://yarnpkg.com)
+
+```
+$ yarn add <%= name %>
+```
+
+## Examples
+
+1. Create AbsintheSocketLink (`absinthe-socket-link.js`)
+```javascript
+// @flow
+
+import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+import {createAbsintheSocketLink} from "@jumpn/absinthe-phoenix-socket-apollo-link";
+import {Socket as PhoenixSocket} from "phoenix";
+
+export default createAbsintheSocketLink(AbsintheSocket.create(
+  new PhoenixSocket("ws://localhost:4000/socket")
+));
+```
+
+2. Send all the operations using AbsintheSocketLink
+```javascript
+// @flow
+
+import ApolloClient from "apollo-client";
+import {InMemoryCache} from "apollo-cache-inmemory";
+
+// see example 1
+import absintheSocketLink from "./absinthe-socket-link";
+
+const client = new ApolloClient({
+  link: absintheSocketLink,
+  cache: new InMemoryCache()
+});
+```
+
+3. Subscribe using AbsintheSocketLink and send queries and mutations using HttpLink
+```javascript
+// @flow
+
+import ApolloClient from "apollo-client";
+import {ApolloLink} from "apollo-link";
+import {createHttpLink} from "apollo-link-http";
+import {hasSubscription} from "@jumpn/utils-graphql";
+import {InMemoryCache} from "apollo-cache-inmemory";
+
+// see example 1
+import absintheSocketLink from "./absinthe-socket-link";
+
+const link = new ApolloLink.split(
+  operation => hasSubscription(operation.query),
+  absintheSocketLink,
+  createHttpLink({uri: "/graphql"})
+);
+
+const client = new ApolloClient({
+  link,
+  cache: new InMemoryCache()
+});
+```
+
+## API
+
+## References
+
+- [Absinthe Phoenix Socket](https://github.com/absinthe-graphql/absinthe-socket/packages/socket)
+- **Apollo Link**
+  - [Apollo Client](http://apollo-link-docs.netlify.com/docs/link/#apollo-client)
+  - [Terminating Links](http://apollo-link-docs.netlify.com/docs/link/overview.html#terminating)
+  - [Directional Composition](http://apollo-link-docs.netlify.com/docs/link/composition.html#directional)
+  - [Http Link](http://apollo-link-docs.netlify.com/docs/link/links/http.html)
+
+## License
+
+[<%= license %>](LICENSE.txt) :copyright: <%= author.name %> (<%= author.email %>)

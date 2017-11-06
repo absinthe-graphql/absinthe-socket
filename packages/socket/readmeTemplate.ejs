@@ -1,0 +1,92 @@
+# <%= name %>
+
+> <%= description %>
+
+<!-- START doctoc -->
+<!-- END doctoc -->
+
+## Features
+
+- Immutable functional API
+> All received and returned objects with the exception of AbsintheSocket
+  instances (there are plans to make this immutable too) are treated in an
+  immutable way. Objects have no methods and instead we provide independant
+  stateless functions to interact with them.
+- Lazy connect / join
+> If provided phoenix socket instance is not connected, then instead of
+  connecting at creation time, connection will be established on the next
+  invocation of [send](#send).
+- Handle pending operations on connection lost
+> Pending mutations will be aborted, queries will be resent, and subscriptions
+  reestablished.
+- Cancellable requests
+> Calling [cancel](#cancel) removes given notifier from absintheSocket instance
+  and sends a Cancel event to all its observers and unsubscribes in case it
+  holds a subscription request.
+- Operations deduplication
+> If an already sent request is given to [send](#send), then instead of sending
+  it again, the notifier associated with it will be returned.
+- Observer support of recoverable errors
+> Since connection lost is handled, then two events needs to exist to represent
+  this fact: Error (recoverable), Abort (unrecoverable).
+- Multiple observers per request
+> Calling [send](#send) returns a notifier which allows attaching any number of
+  observers that will be notified when result arrives.
+- Observer interaction depending on operation type
+> For the case of subscriptions, *Start* event is dispatched when the
+  subscription is established, while for the other types
+  (queries and mutations), when the request is sent.
+
+## Installation
+
+### Using [npm](https://docs.npmjs.com/cli/npm)
+
+```
+$ npm install --save <%= name %>
+```
+
+### Using [yarn](https://yarnpkg.com)
+
+```
+$ yarn add <%= name %>
+```
+
+## Types
+
+```flowtype
+// from @jumpn/utils-graphql
+type GqlRequest<Variables: void | Object = void> = {
+  operation: string,
+  variables?: Variables
+};
+
+type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
+
+type Observer<Result> = {
+  onAbort: (error: Error) => any,
+  onCancel: (error: Error) => any,
+  onError: (error: Error) => any,
+  onStart: () => any,
+  onResult: (result: Result) => any
+};
+
+type Notifier<Result> = {
+  observers: Array<Observer<Result>>,
+  operationType: GqlOperationType,
+  request: GqlRequest<*>,
+  subscriptionId?: string
+};
+
+type AbsintheSocket = {
+  channel: Channel,
+  channelJoinCreated: boolean,
+  notifiers: Array<Notifier<any>>,
+  phoenixSocket: PhoenixSocket
+};
+```
+
+## API
+
+## License
+
+[<%= license %>](LICENSE.txt) :copyright: <%= author.name %> (<%= author.email %>)

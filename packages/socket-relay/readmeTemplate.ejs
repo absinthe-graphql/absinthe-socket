@@ -1,0 +1,54 @@
+# <%= name %>
+
+> <%= description %>
+
+<!-- START doctoc -->
+<!-- END doctoc -->
+
+## Installation
+
+### Using [npm](https://docs.npmjs.com/cli/npm)
+
+```
+$ npm install --save <%= name %>
+```
+
+### Using [yarn](https://yarnpkg.com)
+
+```
+$ yarn add <%= name %>
+```
+
+## Examples
+- **relay-environment.js**
+```javascript
+// @flow
+
+import {createFetcher, createSubscriber} from "@absinthe-phoenix-socket-relay";
+import {Environment, Network} from "relay-runtime";
+
+import absintheSocket from "./absintheSocket";
+
+export default new Environment({
+  network: Network.create(
+    createFetcher(absintheSocket),
+    createSubscriber(absintheSocket)
+  ),
+  store: new Store(new RecordSource())
+});
+```
+
+## API
+
+## References
+
+- [Absinthe Socket](https://github.com/absinthe-graphql/absinthe-socket/packages/socket)
+- **Relay**
+  - [Environment](https://facebook.github.io/relay/docs/relay-environment.html)
+  - [NetworkLayer](https://facebook.github.io/relay/docs/network-layer.html)
+  - [FetchFunction](https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayNetworkTypes.js#L79)
+  - [SubscribeFunction](https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayNetworkTypes.js#L93)
+
+## License
+
+[<%= license %>](LICENSE.txt) :copyright: <%= author.name %> (<%= author.email %>)

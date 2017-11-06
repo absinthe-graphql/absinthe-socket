@@ -1,0 +1,51 @@
+{
+  "name": "@absinthe/socket-apollo-link",
+  "version": "0.0.0",
+  "description": "Absinthe Socket Apollo Link",
+  "module": "dist/index.js",
+  "main": "compat/cjs/index.js",
+  "scripts": {
+    "flow-copy-source": "flow-copy-source -v src",
+    "build:clean": "rm -rfv dist compat",
+    "build:flow": "yarn run flow-copy-source dist && yarn run flow-copy-source compat/cjs",
+    "build:index": "create-index --banner '// @flow' src/ && sed -f indexIgnore.sed -i src/index.js && yarn run lint:fix src/index.js",
+    "build:readme": "pkg-to-readme --template ./readmeTemplate.ejs --force && documentation readme src/** --section API && doctoc README.md",
+    "build:src": "rollup -c",
+    "build": "yarn run build:clean && yarn run build:index && yarn run build:src && yarn run build:flow && yarn run build:readme",
+    "lint": "eslint --rule 'flowtype-errors/show-errors: error'",
+    "lint:fix": "yarn run lint -- --fix",
+    "version": "yarn run build:index && yarn run build:readme && git add README.md src/index.js",
+    "prepublishOnly": "yarn run build:clean && yarn run build:src && yarn run build:flow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absinthe-graphql/absinthe-socket.git"
+  },
+  "author": "Mauro Titimoli <mgtitimoli@gmail.com> (https://github.com/mgtitimoli)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/absinthe-graphql/absinthe-socket/issues"
+  },
+  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/packages/absinthe-phoenix-socket-apollo-link#readme",
+  "keywords": [
+    "absinthe",
+    "phoenix",
+    "socket",
+    "apollo",
+    "link",
+    "apollo-link",
+    "client",
+    "graphql",
+    "utilities",
+    "utils"
+  ],
+  "dependencies": {
+    "apollo-link": "1.0.0",
+    "flow-static-land": "0.2.7",
+    "graphql": "0.11.7",
+    "zen-observable": "0.6.0"
+  },
+  "devDependencies": {
+    "nps": "5.7.1"
+  }
+}
