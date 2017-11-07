@@ -103,7 +103,7 @@ AbsintheSocket instance
 
 ## References
 
--   [Absinthe Phoenix Socket](https://github.com/absinthe-graphql/absinthe-socket/packages/socket)
+-   [Absinthe Phoenix Socket](https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket)
 -   **Apollo Link**
     -   [Apollo Client](http://apollo-link-docs.netlify.com/docs/link/#apollo-client)
     -   [Terminating Links](http://apollo-link-docs.netlify.com/docs/link/overview.html#terminating)

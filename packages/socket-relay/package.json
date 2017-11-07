@@ -32,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/absinthe-graphql/absinthe-socket/issues"
   },
-  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/packages/absinthe-socket-relay#readme",
+  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/absinthe-socket-relay#readme",
   "keywords": [
     "absinthe",
     "phoenix",

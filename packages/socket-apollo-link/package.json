@@ -26,7 +26,7 @@
   "bugs": {
     "url": "https://github.com/absinthe-graphql/absinthe-socket/issues"
   },
-  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/packages/absinthe-phoenix-socket-apollo-link#readme",
+  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/absinthe-phoenix-socket-apollo-link#readme",
   "keywords": [
     "absinthe",
     "phoenix",

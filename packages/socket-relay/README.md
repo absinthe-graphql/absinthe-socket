@@ -91,7 +91,7 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 ## References
 
--   [Absinthe Socket](https://github.com/absinthe-graphql/absinthe-socket/packages/socket)
+-   [Absinthe Socket](https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket)
 -   **Relay**
     -   [Environment](https://facebook.github.io/relay/docs/relay-environment.html)
     -   [NetworkLayer](https://facebook.github.io/relay/docs/network-layer.html)
