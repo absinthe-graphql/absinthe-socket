@@ -7,8 +7,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "commit": "commit",
-    "commitmsg": "commitlint -e",
-    "release": "lerna publish --message 'chore: Release'"
+    "commitmsg": "commitlint -e"
   },
   "lint-staged": {},
   "devDependencies": {
