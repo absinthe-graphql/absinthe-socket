@@ -17,6 +17,13 @@
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-4.2.1.tgz#95b8b9975591047308afb109bd63a4298616eb5b"
 
+"@commitlint/config-lerna-scopes@4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-lerna-scopes/-/config-lerna-scopes-4.2.1.tgz#80033d885caed1fe3dbc82408bb68a4df3460358"
+  dependencies:
+    import-from "^2.1.0"
+    lerna "^2.0.0"
+
 "@commitlint/core@^4.2.2":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@commitlint/core/-/core-4.2.2.tgz#24f37b5afdeca993173f1696724570015148c1f8"
@@ -3209,6 +3216,12 @@ ignore@^3.3.3:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
+import-from@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/import-from/-/import-from-2.1.0.tgz#335db7f2a7affd53aaa471d4b8021dee36b7f3b1"
+  dependencies:
+    resolve-from "^3.0.0"
+
 imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
@@ -3769,7 +3782,7 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-lerna@2.5.1:
+lerna@2.5.1, lerna@^2.0.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.5.1.tgz#d07099bd3051ee799f98c753328bd69e96c6fab8"
   dependencies:
