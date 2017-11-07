@@ -5,8 +5,8 @@
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
   "scripts": {
-    "version": "yarn run build:index && yarn run build:readme && git add README.md src/index.js",
-    "prepublishOnly": "yarn run build:clean && yarn run build:src && yarn run build:flow"
+    "version": "nps version",
+    "prepublishOnly": "nps prepublishOnly"
   },
   "repository": {
     "type": "git",

@@ -5,23 +5,8 @@
   "module": "dist/index.js",
   "main": "src/index.js",
   "scripts": {
-    "flow-copy-source": "flow-copy-source -v src",
-    "build:clean": "rm -rfv dist compat",
-    "build:flow": "yarn run flow-copy-source dist && yarn run flow-copy-source compat/cjs",
-    "build:index": "create-index --banner '// @flow' src/ && sed -f indexIgnore.sed -i src/index.js && yarn run lint:fix src/index.js",
-    "build:readme": "pkg-to-readme --template ./readmeTemplate.ejs --force && documentation readme src/** --section API && doctoc README.md",
-    "build:src": "rollup -c",
-    "build": "yarn run build:clean && yarn run build:index && yarn run build:src && yarn run build:flow && yarn run build:readme",
-    "lint": "eslint --rule 'flowtype-errors/show-errors: error'",
-    "lint:fix": "yarn run lint -- --fix",
-    "version": "yarn run build:index && yarn run build:readme && git add README.md src/index.js",
-    "prepublishOnly": "yarn run build:clean && yarn run build:src && yarn run build:flow"
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn run lint:fix",
-      "git add"
-    ]
+    "version": "nps version",
+    "prepublishOnly": "nps prepublishOnly"
   },
   "repository": {
     "type": "git",
