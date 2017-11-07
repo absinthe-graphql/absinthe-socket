@@ -10,7 +10,7 @@ import type {AbsintheSocket, Notifier, Observer} from "./types";
  * Observes given notifier using the provided observer
  *
  * @example
- * import AbsintheSocket from "@jumpn/absinthe-phoenix-socket"
+ * import AbsintheSocket from "@absinthe/socket"
  *
  * const logEvent = eventName => (...args) => console.log(eventName, ...args);
  *

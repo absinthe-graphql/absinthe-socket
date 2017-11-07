@@ -34,8 +34,8 @@
 ```javascript
 // @flow
 
-import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
-import {createAbsintheSocketLink} from "@jumpn/absinthe-phoenix-socket-apollo-link";
+import * as AbsintheSocket from "@absinthe/socket";
+import {createAbsintheSocketLink} from "@absinthe/socket-apollo-link";
 import {Socket as PhoenixSocket} from "phoenix";
 
 export default createAbsintheSocketLink(AbsintheSocket.create(

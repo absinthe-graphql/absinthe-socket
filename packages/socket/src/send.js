@@ -38,7 +38,7 @@ const sendNew = (absintheSocket, request) => {
  * (see observe function)
  * 
  * @example
- * import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+ * import * as AbsintheSocket from "@absinthe/socket";
  *
  * const operation = `
  *   subscription userSubscription($userId: ID!) {

@@ -115,7 +115,7 @@ unsubscribing in case it holds a subscription request
 **Examples**
 
 ```javascript
-import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+import * as AbsintheSocket from "@absinthe/socket";
 
 AbsintheSocket.cancel(absintheSocket, notifier);
 ```
@@ -133,7 +133,7 @@ Creates an Absinthe Socket using the given Phoenix Socket instance
 **Examples**
 
 ```javascript
-import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+import * as AbsintheSocket from "@absinthe/socket";
 import {Socket as PhoenixSocket} from "phoenix";
 
 const absintheSocket = AbsintheSocket.create(
@@ -156,7 +156,7 @@ Observes given notifier using the provided observer
 **Examples**
 
 ```javascript
-import AbsintheSocket from "@jumpn/absinthe-phoenix-socket"
+import AbsintheSocket from "@absinthe/socket"
 
 const logEvent = eventName => (...args) => console.log(eventName, ...args);
 
@@ -183,7 +183,7 @@ Sends given request and returns an object (notifier) to track its progress
 **Examples**
 
 ```javascript
-import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+import * as AbsintheSocket from "@absinthe/socket";
 
 const operation = `
   subscription userSubscription($userId: ID!) {
@@ -233,7 +233,7 @@ Detaches observer from notifier
 **Examples**
 
 ```javascript
-import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+import * as AbsintheSocket from "@absinthe/socket";
 
 AbsintheSocket.unobserve(absintheSocket, notifier, observer);
 ```

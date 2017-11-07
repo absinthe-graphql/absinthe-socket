@@ -46,7 +46,7 @@ const unsubscribe = (absintheSocket, notifier) =>
  * unsubscribing in case it holds a subscription request
  *
  * @example
- * import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+ * import * as AbsintheSocket from "@absinthe/socket";
  * 
  * AbsintheSocket.cancel(absintheSocket, notifier);
  */

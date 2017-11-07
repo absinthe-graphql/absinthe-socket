@@ -10,7 +10,7 @@ import type {AbsintheSocket, Notifier, Observer} from "./types";
  * Detaches observer from notifier
  *
  * @example
- * import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
+ * import * as AbsintheSocket from "@absinthe/socket";
  *
  * AbsintheSocket.unobserve(absintheSocket, notifier, observer);
  */

@@ -1,8 +1,8 @@
 // @flow
 
-import {observe, send} from "@jumpn/absinthe-phoenix-socket";
+import {observe, send} from "@absinthe/socket";
 
-import type {AbsintheSocket} from "@jumpn/absinthe-phoenix-socket/compat/cjs/types";
+import type {AbsintheSocket} from "@absinthe/socket/compat/cjs/types";
 import type {FetchFunction} from "react-relay";
 
 /**
