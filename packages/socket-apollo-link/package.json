@@ -32,7 +32,7 @@
     "utils"
   ],
   "dependencies": {
-    "@absinthe/socket": "^0.1.2",
+    "@absinthe/socket": "0.1.2",
     "apollo-link": "1.0.0",
     "babel-runtime": "6.26.0",
     "flow-static-land": "0.2.7",
