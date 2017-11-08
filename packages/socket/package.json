@@ -4,6 +4,7 @@
   "description": "Absinthe Socket",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
+  "react-native": "src/index",
   "scripts": {
     "version": "nps version",
     "prepublishOnly": "nps prepublishOnly"
