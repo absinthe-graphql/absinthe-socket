@@ -1,5 +1,3 @@
-// @flow
-
 declare module "react-relay" {
   declare export type RecordState = "EXISTENT" | "NONEXISTENT" | "UNKNOWN";
 
