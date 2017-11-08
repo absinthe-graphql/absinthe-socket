@@ -1,6 +1,6 @@
 {
   "name": "@absinthe/socket-relay",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Absinthe Socket Relay",
   "module": "dist/index.js",
   "main": "src/index.js",
@@ -30,7 +30,7 @@
     "utils"
   ],
   "dependencies": {
-    "@absinthe/socket": "0.1.5",
+    "@absinthe/socket": "0.1.6",
     "@jumpn/utils-graphql": "0.4.0",
     "@jumpn/utils-promise": "0.3.1",
     "babel-runtime": "6.26.0",
