@@ -20,8 +20,6 @@ type SubscriptionResponse =
   | {|subscriptionId: string|}
   | {|errors: Array<GqlError>|};
 
-type QueryOrMutationResponse = {|payload: {result: GqlResponse<any>}|};
-
 const notifyStart = notifier => notifierNotify(notifier, "Start", notifier);
 
 const onSubscriptionSucceed = (absintheSocket, notifier, {subscriptionId}) => {
@@ -53,13 +51,13 @@ const onSubscriptionResponse = (absintheSocket, notifier, response) => {
 const onQueryOrMutationResponse = (absintheSocket, notifier, response) => {
   updateNotifiers(absintheSocket, notifierRemove(notifier));
 
-  notifierNotify(notifier, "Result", response.payload.result);
+  notifierNotify(notifier, "Result", response);
 };
 
 const onTimeout = (absintheSocket, notifier) =>
   notifierNotify(notifier, "Error", new Error("request: timeout"));
 
-const queryOrMutationHandler: NotifierPushHandler<QueryOrMutationResponse> = {
+const queryOrMutationHandler: NotifierPushHandler<GqlResponse<any>> = {
   onError,
   onTimeout,
   onSucceed: onQueryOrMutationResponse
