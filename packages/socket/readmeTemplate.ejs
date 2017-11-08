@@ -63,11 +63,11 @@ type GqlRequest<Variables: void | Object = void> = {
 type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
 
 type Observer<Result> = {
-  onAbort: (error: Error) => any,
-  onCancel: (error: Error) => any,
-  onError: (error: Error) => any,
-  onStart: () => any,
-  onResult: (result: Result) => any
+  onAbort?: (error: Error) => any,
+  onCancel?: () => any,
+  onError?: (error: Error) => any,
+  onStart?: (notifier: Notifier<Result>) => any,
+  onResult?: (result: Result) => any
 };
 
 type Notifier<Result> = {
