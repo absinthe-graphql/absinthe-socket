@@ -42,7 +42,7 @@ const toObservable = <Result>(
       onError,
       onStart,
       onAbort: observer.error,
-      onresult: onResult(notifier, observer)
+      onResult: onResult(notifier, observer)
     });
 
     return unsubscribe;
