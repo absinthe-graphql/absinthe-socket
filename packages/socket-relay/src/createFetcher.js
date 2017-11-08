@@ -18,7 +18,7 @@ const createFetcher = (
     observe(absintheSocket, send(absintheSocket, {operation, variables}), {
       onError,
       onAbort: reject,
-      onValue: resolve
+      onResult: resolve
     })
   );
 

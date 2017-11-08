@@ -57,8 +57,8 @@ const createSubscriber = (
   observe(absintheSocket, notifier, {
     onAbort: onAbort(deferred, OnUnrecoverableError),
     onError: onRecoverableError,
-    onStart: onStart(deferred),
-    onValue: (onNext: any)
+    onResult: (onNext: any),
+    onStart: onStart(deferred)
   });
 
   return disposable;
