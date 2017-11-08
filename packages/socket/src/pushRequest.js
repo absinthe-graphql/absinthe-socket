@@ -23,12 +23,11 @@ type SubscriptionResponse =
 const notifyStart = notifier => notifierNotify(notifier, "Start", notifier);
 
 const onSubscriptionSucceed = (absintheSocket, notifier, {subscriptionId}) => {
-  updateNotifiers(
-    absintheSocket,
-    notifierRefresh({...notifier, subscriptionId})
-  );
+  const updatedNotifier = {...notifier, subscriptionId};
 
-  notifyStart(notifier);
+  updateNotifiers(absintheSocket, notifierRefresh(updatedNotifier));
+
+  notifyStart(updatedNotifier);
 };
 
 const abortRequest = (absintheSocket, notifier, error) => {
