@@ -31,7 +31,9 @@
     "utils"
   ],
   "dependencies": {
+    "@absinthe/socket": "0.1.1",
     "apollo-link": "1.0.0",
+    "babel-runtime": "6.26.0",
     "flow-static-land": "0.2.7",
     "graphql": "0.11.7",
     "zen-observable": "0.6.0"
