@@ -1,4 +1,3 @@
-src/
 .*
 indexIgnore.sed
 readmeTemplate.ejs
