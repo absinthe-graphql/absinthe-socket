@@ -100,4 +100,4 @@ Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 
 ## License
 
-[MIT](LICENSE.txt) :copyright: Mauro Titimoli (mgtitimoli@gmail.com)
+[MIT](LICENSE.txt) :copyright: Jumpn Limited.

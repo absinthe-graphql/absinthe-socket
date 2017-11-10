@@ -251,4 +251,4 @@ Returns **AbsintheSocket**
 
 ## License
 
-[MIT](LICENSE.txt) :copyright: Mauro Titimoli (mgtitimoli@gmail.com)
+[MIT](LICENSE.txt) :copyright: Jumpn Limited.
