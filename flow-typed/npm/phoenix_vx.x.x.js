@@ -7,7 +7,7 @@ declare module "phoenix" {
     join_ref: null | number
   };
 
-  declare type SocketOpts = {
+  declare export type SocketOpts = {
     decode: (json: string, callback: (data: Object) => any) => any,
     encode: (data: Object, callback: (json: string) => any) => any,
     heartbeatIntervalMs: number,
@@ -29,7 +29,7 @@ declare module "phoenix" {
     constructor(endPoint: string, opts?: $Shape<SocketOpts>): Socket,
     protocol(): string,
     endPointURL(): string,
-    disconnect(callback: () => any, code: number, reason: string): void,
+    disconnect(callback?: () => any, code?: number, reason?: string): void,
     connect(params?: Object): void,
     isConnected(): boolean,
     log(kind: string, msg: string, data: Object): void,
