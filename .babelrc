@@ -1,8 +1,8 @@
 {
   "plugins": ["transform-runtime"],
   "presets": [
-    "flow",
+    ["env", {"modules": false, "spec": true, "useBuiltIns": true}],
     "stage-0",
-    ["env", {"modules": false, "spec": true, "useBuiltIns": true}]
+    "flow"
   ]
 }
