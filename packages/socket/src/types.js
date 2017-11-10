@@ -4,7 +4,8 @@ import {Channel, Socket as PhoenixSocket} from "phoenix";
 
 import type {
   GqlOperationType,
-  GqlRequest
+  GqlRequest,
+  GqlResponse
 } from "@jumpn/utils-graphql/compat/cjs/types";
 
 type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
@@ -31,6 +32,11 @@ type AbsintheSocket = {
   phoenixSocket: PhoenixSocket
 };
 
+type SubscriptionPayload<Data> = {
+  result: GqlResponse<Data>,
+  subscriptionId: string
+};
+
 type PushHandler<Response: Object> = {
   onError: (errorMessage: string) => any,
   onSucceed: (response: Response) => any,
@@ -54,9 +60,12 @@ type NotifierPushHandler<Response: Object> = {
 export type {
   AbsintheSocket,
   Event,
+  GqlOperationType,
   GqlRequest,
+  GqlResponse,
   Notifier,
-  Observer,
   NotifierPushHandler,
-  PushHandler
+  Observer,
+  PushHandler,
+  SubscriptionPayload
 };

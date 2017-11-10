@@ -60,6 +60,15 @@ type GqlRequest<Variables: void | Object = void> = {
   variables?: Variables
 };
 
+// from @jumpn/utils-graphql
+type GqlResponse<Data> = {
+  data?: Data,
+  errors?: Array<GqlError>
+};
+
+// from @jumpn/utils-graphql
+type GqlOperationType = "mutation" | "query" | "subscription";
+
 type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
 
 type Observer<Result> = {

@@ -10,12 +10,7 @@ import notifierNotify from "./notifier/notify";
 import notifierRemove from "./notifier/remove";
 import updateNotifiers from "./updateNotifiers";
 
-import type {AbsintheSocket} from "./types";
-
-type SubscriptionPayload<Result> = {
-  result: Result,
-  subscriptionId: string
-};
+import type {AbsintheSocket, SubscriptionPayload} from "./types";
 
 const createConnectionCloseError = () => new Error("connection: close");
 
