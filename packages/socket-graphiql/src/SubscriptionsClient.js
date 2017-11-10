@@ -20,7 +20,7 @@ type SubscriptionCallback = (
 const observe = (subscriptionsClient, notifier, callback) =>
   AbsintheSocket.observe(subscriptionsClient.absintheSocket, notifier, {
     onAbort: callback,
-    onResult: result => callback(null, result.data)
+    onResult: result => callback(null, result)
   });
 
 const generateRequestKey = subscriptionsClient => {
