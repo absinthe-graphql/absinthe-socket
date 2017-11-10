@@ -14,10 +14,14 @@ const pkg = require(`${process.cwd()}/package.json`);
 
 const plugins = {
   babel: babel({
-    exclude: "node_modules/**",
+    exclude: ["node_modules/**", "../../node_modules/**"],
     runtimeHelpers: true
   }),
-  commonjs: commonjs(),
+  commonjs: commonjs({
+    namedExports: {
+      '../../node_modules/phoenix/priv/static/phoenix.js': [ 'Socket' ]
+    }
+  }),
   resolve: resolve(),
   uglify: uglify({}, minify)
 };
@@ -48,16 +52,15 @@ const getUnscopedName = pkg => {
 };
 
 export default [
-  // TODO: check why rollup-plugin-node-resolve is throwing an error
-  // {
-  //   input: `${dirs.input}/index.js`,
-  //   output: {
-  //     file: `${dirs.compat}/umd/index.js`,
-  //     format: "umd"
-  //   },
-  //   name: pascalCase(getUnscopedName(pkg)),
-  //   plugins: [plugins.babel, plugins.resolve, plugins.commonjs, plugins.uglify],
-  //   sourcemap: true
-  // },
+  {
+    input: `${dirs.input}/index.js`,
+    output: {
+      file: `${dirs.compat}/umd/index.js`,
+      format: "umd"
+    },
+    name: pascalCase(getUnscopedName(pkg)),
+    plugins: [plugins.babel, plugins.resolve, plugins.commonjs, plugins.uglify],
+    sourcemap: true
+  },
   ...sources.map(getCjsAndEsConfig)
 ];
