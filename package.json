@@ -11,11 +11,11 @@
   },
   "lint-staged": {},
   "devDependencies": {
-    "@commitlint/cli": "4.2.2",
-    "@commitlint/config-angular": "4.2.1",
-    "@commitlint/config-lerna-scopes": "4.2.1",
-    "@commitlint/prompt-cli": "4.2.2",
-    "babel-eslint": "8.0.1",
+    "@commitlint/cli": "4.3.0",
+    "@commitlint/config-angular": "4.3.0",
+    "@commitlint/config-lerna-scopes": "4.3.0",
+    "@commitlint/prompt-cli": "4.3.0",
+    "babel-eslint": "8.0.2",
     "babel-plugin-transform-runtime": "6.23.0",
     "babel-preset-env": "1.6.1",
     "babel-preset-flow": "6.23.0",
@@ -30,7 +30,7 @@
     "eslint-plugin-flowtype-errors": "3.3.5",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-prettier": "2.3.1",
-    "flow-bin": "0.58.0",
+    "flow-bin": "0.59.0",
     "flow-copy-source": "1.2.1",
     "flow-typed": "2.2.3",
     "globby": "6.1.0",
@@ -39,12 +39,12 @@
     "lint-staged": "4.3.0",
     "pascal-case": "2.0.1",
     "pkg-to-readme": "1.1.0",
-    "prettier": "1.7.4",
-    "rollup": "0.50.0",
+    "prettier": "1.8.2",
+    "rollup": "0.51.2",
     "rollup-plugin-babel": "3.0.2",
     "rollup-plugin-commonjs": "8.2.6",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-plugin-uglify": "2.0.1",
-    "uglify-es": "3.1.7"
+    "uglify-es": "3.1.8"
   }
 }
