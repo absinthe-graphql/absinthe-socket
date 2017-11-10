@@ -1,6 +1,6 @@
-# @absinthe/utils-graphiql
+# @absinthe/socket-graphiql
 
-> GraphiQL Utilities
+> Socket GraphiQL Utilities
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -19,11 +19,11 @@
 
 ### Using [npm](https://docs.npmjs.com/cli/npm)
 
-    $ npm install --save @absinthe/utils-graphiql
+    $ npm install --save @absinthe/socket-graphiql
 
 ### Using [yarn](https://yarnpkg.com)
 
-    $ yarn add @absinthe/utils-graphiql
+    $ yarn add @absinthe/socket-graphiql
 
 ## API
 

@@ -1,7 +1,7 @@
 {
-  "name": "@absinthe/utils-graphiql",
-  "version": "0.1.0",
-  "description": "GraphiQL Utilities",
+  "name": "@absinthe/socket-graphiql",
+  "version": "0.0.0",
+  "description": "Socket GraphiQL Utilities",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
   "react-native": "src/index",
@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/absinthe-graphql/absinthe-socket/issues"
   },
-  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/utils-graphiql#readme",
+  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/socket-graphiql#readme",
   "keywords": [
     "absinthe",
     "phoenix",
