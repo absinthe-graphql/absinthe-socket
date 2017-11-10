@@ -1,0 +1,44 @@
+{
+  "name": "@absinthe/utils-graphiql",
+  "version": "0.0.0",
+  "description": "GraphiQL Utilities",
+  "module": "dist/index.js",
+  "main": "compat/cjs/index.js",
+  "react-native": "src/index",
+  "scripts": {
+    "version": "nps version",
+    "prepublishOnly": "nps prepublishOnly"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/absinthe-graphql/absinthe-socket.git"
+  },
+  "author": "Mauro Titimoli <mgtitimoli@gmail.com> (https://github.com/mgtitimoli)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/absinthe-graphql/absinthe-socket/issues"
+  },
+  "homepage": "https://github.com/absinthe-graphql/absinthe-socket/tree/master/packages/utils-graphiql#readme",
+  "keywords": [
+    "absinthe",
+    "phoenix",
+    "socket",
+    "client",
+    "graphql",
+    "graphiql",
+    "subscriptions",
+    "transport",
+    "websocket",
+    "utilities",
+    "utils"
+  ],
+  "dependencies": {
+    "@absinthe/socket": "0.1.6",
+    "@jumpn/utils-graphql": "0.5.3",
+    "babel-runtime": "6.26.0",
+    "phoenix": "1.3.0"
+  },
+  "devDependencies": {
+    "nps": "5.7.1"
+  }
+}
