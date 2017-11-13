@@ -1,6 +1,9 @@
 // @flow
 
-import {errorsToString as gqlErrorsToString} from "@jumpn/utils-graphql";
+import {
+  errorsToString as gqlErrorsToString,
+  requestToCompat
+} from "@jumpn/utils-graphql";
 
 import type {
   GqlError,
@@ -68,12 +71,9 @@ const subcriptionHandler: NotifierPushHandler<SubscriptionResponse> = {
   onSucceed: onSubscriptionResponse
 };
 
-const requestToDoc = ({operation, variables}) =>
-  variables ? {query: operation, variables} : {query: operation};
-
 const send = (absintheSocket, request, notifierPushHandler) =>
   handlePush(
-    absintheSocket.channel.push("doc", requestToDoc(request)),
+    absintheSocket.channel.push("doc", requestToCompat(request)),
     createPushHandler(notifierPushHandler, absintheSocket, request)
   );
 
