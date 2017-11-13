@@ -19,7 +19,11 @@ const plugins = {
   }),
   commonjs: commonjs({
     namedExports: {
-      '../../node_modules/phoenix/priv/static/phoenix.js': [ 'Socket' ]
+      "../../node_modules/phoenix/priv/static/phoenix.js": [
+        "Channel",
+        "Push",
+        "Socket"
+      ]
     }
   }),
   resolve: resolve(),
