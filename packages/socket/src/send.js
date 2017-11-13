@@ -36,7 +36,7 @@ const sendNew = (absintheSocket, request) => {
 /**
  * Sends given request and returns an object (notifier) to track its progress
  * (see observe function)
- * 
+ *
  * @example
  * import * as AbsintheSocket from "@absinthe/socket";
  *
@@ -51,7 +51,7 @@ const sendNew = (absintheSocket, request) => {
  *
  * // This example uses a subscription, but the functionallity is the same for
  * // all operation types (queries, mutations and subscriptions)
- * 
+ *
  * const notifier = AbsintheSocket.send(absintheSocket, {
  *   operation,
  *   variables: {userId: 10}
