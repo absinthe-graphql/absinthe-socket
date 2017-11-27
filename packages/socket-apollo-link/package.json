@@ -1,6 +1,6 @@
 {
   "name": "@absinthe/socket-apollo-link",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Absinthe Socket Apollo Link",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
