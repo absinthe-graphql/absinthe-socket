@@ -25,14 +25,30 @@ const getRequest = <Variables: Object>({
   variables
 });
 
-const notifierToObservable = (absintheSocket, onError, onStart) => notifier =>
-  toObservable(absintheSocket, notifier, {
+const notifierToObservable = (absintheSocket, onError, onStart) => notifier => {
+  let notifierStarted;
+  let unsubscribed = false;
+
+  return toObservable(absintheSocket, notifier, {
     onError,
-    onStart,
+    onStart: notifierLatest => {
+      notifierStarted = notifierLatest;
+
+      if (unsubscribed) {
+        cancel(absintheSocket, notifierStarted);
+      }
+
+      onStart && onStart(notifierLatest);
+    },
     unsubscribe: () => {
-      cancel(absintheSocket, notifier);
+      unsubscribed = true;
+
+      if (notifierStarted) {
+        cancel(absintheSocket, notifierStarted);
+      }
     }
   });
+};
 
 /**
  * Creates a terminating ApolloLink to request operations using given
