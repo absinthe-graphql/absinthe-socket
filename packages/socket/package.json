@@ -1,6 +1,6 @@
 {
   "name": "@absinthe/socket",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Absinthe Socket",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
