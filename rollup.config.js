@@ -19,11 +19,55 @@ const plugins = {
   }),
   commonjs: commonjs({
     namedExports: {
-      "../../node_modules/phoenix/priv/static/phoenix.js": [
-        "Channel",
-        "Push",
-        "Socket"
-      ]
+      "apollo-utilities": [
+        "addTypenameToDocument",
+        "argumentsObjectFromField",
+        "assign",
+        "checkDocument",
+        "cloneDeep",
+        "createFragmentMap",
+        "flattenSelections",
+        "getDefaultValues",
+        "getDirectiveInfoFromField",
+        "getDirectiveNames",
+        "getEnv",
+        "getFragmentDefinition",
+        "getFragmentDefinitions",
+        "getFragmentQueryDocument",
+        "getMainDefinition",
+        "getMutationDefinition",
+        "getOperationDefinition",
+        "getOperationDefinitionOrDie",
+        "getOperationName",
+        "getQueryDefinition",
+        "getStoreKeyName",
+        "graphQLResultHasError",
+        "hasDirectives",
+        "isDevelopment",
+        "isEnv",
+        "isEqual",
+        "isField",
+        "isIdValue",
+        "isInlineFragment",
+        "isJsonValue",
+        "isNumberValue",
+        "isProduction",
+        "isScalarValue",
+        "isTest",
+        "maybeDeepFreeze",
+        "removeConnectionDirectiveFromDocument",
+        "removeDirectivesFromDocument",
+        "resultKeyNameFromField",
+        "shouldInclude",
+        "storeKeyNameFromField",
+        "toIdValue",
+        "tryFunctionOrLogError",
+        "valueFromNode",
+        "valueToObjectRepresentation",
+        "variablesInOperation",
+        "warnOnceInDevelopment"
+      ],
+      phoenix: ["Ajax", "Channel", "LongPoll", "Presence", "Socket"]
     }
   }),
   resolve: resolve(),
@@ -39,11 +83,10 @@ const dirs = {
 const getCjsAndEsConfig = fileName => ({
   input: `${dirs.input}/${fileName}`,
   output: [
-    {file: `${dirs.output}/${fileName}`, format: "es"},
-    {file: `${dirs.compat}/cjs/${fileName}`, format: "cjs"}
+    {file: `${dirs.output}/${fileName}`, format: "es", sourcemap: true},
+    {file: `${dirs.compat}/cjs/${fileName}`, format: "cjs", sourcemap: true}
   ],
-  plugins: [plugins.babel, plugins.uglify],
-  sourcemap: true
+  plugins: [plugins.babel, plugins.uglify]
 });
 
 const sources = globby.sync("**/*js", {cwd: dirs.input});
@@ -60,11 +103,11 @@ export default [
     input: `${dirs.input}/index.js`,
     output: {
       file: `${dirs.compat}/umd/index.js`,
-      format: "umd"
+      format: "umd",
+      name: pascalCase(getUnscopedName(pkg)),
+      sourcemap: true
     },
-    name: pascalCase(getUnscopedName(pkg)),
-    plugins: [plugins.babel, plugins.resolve, plugins.commonjs, plugins.uglify],
-    sourcemap: true
+    plugins: [plugins.babel, plugins.resolve, plugins.commonjs, plugins.uglify]
   },
   ...sources.map(getCjsAndEsConfig)
 ];
