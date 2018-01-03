@@ -1,6 +1,6 @@
 {
   "name": "@absinthe/socket-apollo-link",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Absinthe Socket Apollo Link",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
@@ -32,7 +32,7 @@
     "utils"
   ],
   "dependencies": {
-    "@absinthe/socket": "0.1.9",
+    "@absinthe/socket": "0.1.10",
     "apollo-link": "1.0.0",
     "babel-runtime": "6.26.0",
     "flow-static-land": "0.2.8",
