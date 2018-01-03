@@ -7,7 +7,7 @@
   "react-native": "src/index",
   "scripts": {
     "version": "nps version",
-    "prepublishOnly": "nps prepublishOnly"
+    "prepublish": "nps prepublish"
   },
   "repository": {
     "type": "git",

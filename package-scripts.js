@@ -8,7 +8,7 @@ module.exports = {
     "build:src": "rollup -c ../../rollup.config.js",
     "flow-copy-source": "flow-copy-source -v src",
     "lint": "eslint --rule 'flowtype-errors/show-errors: error'",
-    "prepublishOnly": "nps 'build:clean' 'build:src' 'build:flow'",
+    "prepublish": "not-in-install && nps 'build:clean' 'build:src' 'build:flow'",
     "version": "nps 'build:index' 'build:readme' && git add README.md src/index.js",
   }
 };
