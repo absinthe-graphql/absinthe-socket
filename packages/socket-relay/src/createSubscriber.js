@@ -1,6 +1,7 @@
 // @flow
 
 import {cancel, observe, send} from "@absinthe/socket";
+import notifierFind from "@absinthe/socket/dist/notifier/find";
 import {createDeferred} from "@jumpn/utils-promise";
 import {getOperationType} from "@jumpn/utils-graphql";
 
@@ -21,7 +22,8 @@ const onAbort = (deferred, callback) => error => {
 
 const createDisposable = (absintheSocket, notifier) => ({
   dispose: () => {
-    cancel(absintheSocket, notifier);
+    const disposableNotifier = notifierFind(absintheSocket.notifiers, "request", notifier.request);
+    cancel(absintheSocket, disposableNotifier);
   }
 });
 
