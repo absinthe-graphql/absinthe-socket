@@ -40,7 +40,7 @@ const abortRequest = (absintheSocket, notifier, error) => {
 };
 
 const onError = (absintheSocket, notifier, errorMessage) =>
-  abortRequest(absintheSocket, notifier, new Error(errorMessage));
+  abortRequest(absintheSocket, notifier, new Error(JSON.stringify(errorMessage)));
 
 const onSubscriptionResponse = (absintheSocket, notifier, response) => {
   if (response.errors) {
