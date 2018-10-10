@@ -37,12 +37,12 @@ const toObservable = <Result>(
   notifier: Notifier<Result>,
   {onError, onStart, unsubscribe}: $Shape<Options<Result>> = {}
 ) =>
-  new Observable(observer => {
+  new Observable(subscriber => {
     observe(absintheSocket, notifier, {
       onError,
       onStart,
-      onAbort: observer.error,
-      onResult: onResult(notifier, observer)
+      onAbort: subscriber.error.bind(subscriber),
+      onResult: onResult(notifier, subscriber)
     });
 
     return unsubscribe;

@@ -59,7 +59,7 @@ const notifierToObservable = (absintheSocket, onError, onStart) => notifier => {
   };
 
   return new Observable(subscriber => {
-    observer.onAbort = subscriber.error;
+    observer.onAbort = subscriber.error.bind(subscriber);
     observer.onResult = onResult(notifier, subscriber);
     observe(absintheSocket, notifier, observer);
 
