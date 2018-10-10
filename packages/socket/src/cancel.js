@@ -3,10 +3,12 @@
 import createPushHandler from "./createPushHandler";
 import handlePush from "./handlePush";
 import notifierNotify from "./notifier/notify";
+import notifierRefresh from "./notifier/refresh";
 import notifierRemove from "./notifier/remove";
+import notifierUnobserve from "./notifier/unobserve";
 import updateNotifiers from "./updateNotifiers";
 
-import type {AbsintheSocket, Notifier, NotifierPushHandler} from "./types";
+import type {AbsintheSocket, Notifier, Observer, NotifierPushHandler} from "./types";
 
 // TODO: improve this type
 type UnsubscribeResponse = {};
@@ -47,17 +49,29 @@ const unsubscribe = (absintheSocket, notifier) =>
  *
  * @example
  * import * as AbsintheSocket from "@absinthe/socket";
- * 
+ *
  * AbsintheSocket.cancel(absintheSocket, notifier);
  */
 const cancel = (
   absintheSocket: AbsintheSocket,
-  notifier: Notifier<any>
+  notifier: Notifier<any>,
+  observer: Observer<any>
 ): AbsintheSocket => {
-  if (notifier.operationType === "subscription") {
-    unsubscribe(absintheSocket, notifier);
-  } else {
+  observer.onCancel && observer.onCancel();
+
+  notifier = notifierUnobserve(notifier, observer);
+  if (notifier.observers.length === 0) {
+    // this was the last observer -> remove the whole notifier and
+    // unsubscribe the subscription if necessary.
     removeNotifiers(absintheSocket, notifier);
+    if (notifier.operationType === "subscription") {
+      unsubscribe(absintheSocket, notifier);
+    }
+  }
+  else {
+    // there are other observers left -> only refresh the list
+    // with the updated notifier.
+    updateNotifiers(absintheSocket, notifierRefresh(notifier));
   }
 
   return absintheSocket;

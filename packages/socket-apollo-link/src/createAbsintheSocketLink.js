@@ -1,9 +1,10 @@
 // @flow
 
 import {ApolloLink} from "apollo-link";
-import {cancel, send, toObservable} from "@absinthe/socket";
+import {cancel, send, observe} from "@absinthe/socket";
 import {compose} from "flow-static-land/lib/Fun";
 import {print} from "graphql/language/printer";
+import Observable from "zen-observable";
 
 import type {
   AbsintheSocket,
@@ -11,6 +12,7 @@ import type {
   Observer
 } from "@absinthe/socket/compat/cjs/types";
 import type {DocumentNode} from "graphql/language/ast";
+import type {Subscriber} from "zen-observable";
 
 type ApolloOperation<Variables> = {
   query: DocumentNode,
@@ -25,28 +27,43 @@ const getRequest = <Variables: Object>({
   variables
 });
 
+const onResult = (notifier, subscriber: Subscriber<any>) => result => {
+  subscriber.next(result);
+
+  if (notifier.operationType !== "subscription") {
+    subscriber.complete();
+  }
+};
+
 const notifierToObservable = (absintheSocket, onError, onStart) => notifier => {
   let notifierStarted;
   let unsubscribed = false;
-
-  return toObservable(absintheSocket, notifier, {
+  const observer: Observer<any> = {
     onError,
     onStart: notifierLatest => {
       notifierStarted = notifierLatest;
 
       if (unsubscribed) {
-        cancel(absintheSocket, notifierStarted);
+        cancel(absintheSocket, notifierStarted, observer);
       }
 
       onStart && onStart(notifierLatest);
-    },
-    unsubscribe: () => {
-      unsubscribed = true;
-
-      if (notifierStarted) {
-        cancel(absintheSocket, notifierStarted);
-      }
     }
+  };
+
+  const unsubscribe = () => {
+    unsubscribed = true;
+    if (notifierStarted) {
+      cancel(absintheSocket, notifierStarted, observer);
+    }
+  };
+
+  return new Observable(subscriber => {
+    observer.onAbort = subscriber.error;
+    observer.onResult = onResult(notifier, subscriber);
+    observe(absintheSocket, notifier, observer);
+
+    return unsubscribe;
   });
 };
 
