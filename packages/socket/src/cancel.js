@@ -6,6 +6,7 @@ import notifierNotify from "./notifier/notify";
 import notifierRefresh from "./notifier/refresh";
 import notifierRemove from "./notifier/remove";
 import notifierUnobserve from "./notifier/unobserve";
+import notifierFindIndex from "./notifier/findIndex";
 import updateNotifiers from "./updateNotifiers";
 
 import type {AbsintheSocket, Notifier, Observer, NotifierPushHandler} from "./types";
@@ -59,7 +60,12 @@ const cancel = (
 ): AbsintheSocket => {
   observer.onCancel && observer.onCancel();
 
-  notifier = notifierUnobserve(notifier, observer);
+  const notifierIdx = notifierFindIndex(absintheSocket.notifiers, "request", notifier.request);
+  if (notifierIdx == -1)
+    return absintheSocket;
+
+  notifier = notifierUnobserve(absintheSocket.notifiers[notifierIdx], observer);
+
   if (notifier.observers.length === 0) {
     // this was the last observer -> remove the whole notifier and
     // unsubscribe the subscription if necessary.
