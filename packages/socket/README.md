@@ -10,6 +10,7 @@
 - [Installation](#installation)
   - [Using npm](#using-npm)
   - [Using yarn](#using-yarn)
+- [Usage](#usage)
 - [Types](#types)
 - [API](#api)
   - [cancel](#cancel)
@@ -63,6 +64,47 @@
 ### Using [yarn](https://yarnpkg.com)
 
     $ yarn add @absinthe/socket
+
+## Usage
+
+In order to use `@absinthe/socket` you have to setup a phoenix socket, (or
+other suitable transport mechanism), setup a notifier for your operation, and
+then observe the result. More detail on each method is covered in [API](#api)
+but a basic example looks like this:
+
+```
+import * as AbsintheSocket from "@absinthe/socket";
+import { Socket as PhoenixSocket } from "phoenix";
+
+/* PhoenixSocket options are optional, but shown as you cannot place params
+ * in the websocket string, common example of usage would be passing in an
+ * authentication token.
+ */
+const absintheSocket =
+  AbsintheSocket.create(
+    new PhoenixSocket("ws://localhost.com/socket", { params: { } })
+  );
+  
+var yourQueryString=`
+  subscription {
+    comments($postId)
+  }
+`;
+
+// Note that input object here must contain { operation: ... }
+var absintheNotifier =
+  AbsintheSocket.send(absintheSocket, {
+    operation: yourQueryString,
+    variables: {}
+  });
+
+AbsintheSocket.observe(absintheSocket, absintheNotifier, {
+  onAbort: (result) => {},
+  onCancel: (result) => {},
+  onError: (result) => {},
+  onResult: (result) => {},
+})
+```
 
 ## Types
 
@@ -207,7 +249,7 @@ const operation = `
 // all operation types (queries, mutations and subscriptions)
 
 const notifier = AbsintheSocket.send(absintheSocket, {
-  operation,
+  operation: operation,
   variables: {userId: 10}
 });
 ```
