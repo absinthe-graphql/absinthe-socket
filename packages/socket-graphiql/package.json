@@ -36,7 +36,7 @@
     "@absinthe/socket": "0.1.10",
     "@jumpn/utils-graphql": "0.5.3",
     "babel-runtime": "6.26.0",
-    "phoenix": "1.3.0"
+    "phoenix": "1.4.0"
   },
   "devDependencies": {
     "nps": "5.7.1"
