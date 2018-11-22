@@ -74,7 +74,7 @@ import {InMemoryCache} from "apollo-cache-inmemory";
 // see example 1
 import absintheSocketLink from "./absinthe-socket-link";
 
-const link = new ApolloLink.split(
+const link = ApolloLink.split(
   operation => hasSubscription(operation.query),
   absintheSocketLink,
   createHttpLink({uri: "/graphql"})
