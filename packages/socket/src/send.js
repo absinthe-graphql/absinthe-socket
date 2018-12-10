@@ -5,10 +5,15 @@ import {append} from "@jumpn/utils-array";
 import joinChannel from "./joinChannel";
 import notifierCreate from "./notifier/create";
 import notifierFind from "./notifier/find";
+import notifierFlushCanceled from "./notifier/flushCanceled";
+import notifierReactivate from "./notifier/reactivate";
 import pushRequest from "./pushRequest";
+import refreshNotifier from "./refreshNotifier";
+import requestStatuses from "./notifier/requestStatuses";
 import updateNotifiers from "./updateNotifiers";
 
-import type {AbsintheSocket, GqlRequest, Notifier} from "./types";
+import type {AbsintheSocket, GqlRequest} from "./types";
+import type {Notifier} from "./notifier/types";
 
 const connectOrJoinChannel = absintheSocket => {
   if (absintheSocket.phoenixSocket.isConnected()) {
@@ -31,6 +36,23 @@ const sendNew = (absintheSocket, request) => {
   }
 
   return notifier;
+};
+
+const updateCanceledReactivate = (absintheSocket, notifier) =>
+  refreshNotifier(absintheSocket, notifierReactivate(notifier));
+
+const updateCanceled = (absintheSocket, notifier) =>
+  notifier.requestStatus === requestStatuses.sending
+    ? updateCanceledReactivate(absintheSocket, notifierFlushCanceled(notifier))
+    : updateCanceledReactivate(absintheSocket, notifier);
+
+const updateIfCanceled = (absintheSocket, notifier) =>
+  notifier.isActive ? notifier : updateCanceled(absintheSocket, notifier);
+
+const getExistentIfAny = (absintheSocket, request) => {
+  const notifier = notifierFind(absintheSocket.notifiers, "request", request);
+
+  return notifier && updateIfCanceled(absintheSocket, notifier);
 };
 
 /**
@@ -57,11 +79,10 @@ const sendNew = (absintheSocket, request) => {
  *   variables: {userId: 10}
  * });
  */
-const send = (
+const send = <Result, Variables: void | Object>(
   absintheSocket: AbsintheSocket,
-  request: GqlRequest<*>
-): Notifier<*> =>
-  notifierFind(absintheSocket.notifiers, "request", request) ||
-  sendNew(absintheSocket, request);
+  request: GqlRequest<Variables>
+): Notifier<Result, Variables> =>
+  getExistentIfAny(absintheSocket, request) || sendNew(absintheSocket, request);
 
 export default send;

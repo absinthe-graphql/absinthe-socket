@@ -4,7 +4,8 @@ import notifierRefresh from "./notifier/refresh";
 import notifierUnobserve from "./notifier/unobserve";
 import updateNotifiers from "./updateNotifiers";
 
-import type {AbsintheSocket, Notifier, Observer} from "./types";
+import type {AbsintheSocket} from "./types";
+import type {Notifier, Observer} from "./notifier/types";
 
 /**
  * Detaches observer from notifier
@@ -16,8 +17,8 @@ import type {AbsintheSocket, Notifier, Observer} from "./types";
  */
 const unobserve = (
   absintheSocket: AbsintheSocket,
-  notifier: Notifier<any>,
-  observer: Observer<any>
+  notifier: Notifier<any, any>,
+  observer: Observer<any, any>
 ): AbsintheSocket => {
   updateNotifiers(
     absintheSocket,

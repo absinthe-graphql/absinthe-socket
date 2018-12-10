@@ -12,8 +12,11 @@
 - [Examples](#examples)
 - [API](#api)
   - [createFetcher](#createfetcher)
+    - [Parameters](#parameters)
   - [createSubscriber](#createsubscriber)
+    - [Parameters](#parameters-1)
   - [isSubscribed](#issubscribed)
+    - [Parameters](#parameters-2)
 - [References](#references)
 - [License](#license)
 
@@ -59,10 +62,10 @@ export default new Environment({
 Creates a Fetcher (Relay FetchFunction) using the given AbsintheSocket
 instance
 
-**Parameters**
+#### Parameters
 
 -   `absintheSocket` **AbsintheSocket** 
--   `onError` **function (error: [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)): any** 
+-   `onError` **function (error: [Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)): any** 
 
 Returns **FetchFunction** 
 
@@ -71,10 +74,10 @@ Returns **FetchFunction**
 Creates a Subscriber (Relay SubscribeFunction) using the given AbsintheSocket
 instance
 
-**Parameters**
+#### Parameters
 
 -   `absintheSocket` **AbsintheSocket** 
--   `onRecoverableError` **function (error: [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)): any** 
+-   `onRecoverableError` **function (error: [Error](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error)): any** 
 
 Returns **SubscribeFunction** 
 
@@ -83,11 +86,11 @@ Returns **SubscribeFunction**
 Returns a promise that resolves to `true` in case subscription of given
 disposable has started or to `false` otherwise
 
-**Parameters**
+#### Parameters
 
 -   `disposable` **Disposable** 
 
-Returns **[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)>** 
+Returns **[Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise)&lt;[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)>** 
 
 ## References
 

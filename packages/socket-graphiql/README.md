@@ -11,6 +11,7 @@
   - [Using yarn](#using-yarn)
 - [API](#api)
   - [createFetcher](#createfetcher)
+    - [Parameters](#parameters)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -33,11 +34,11 @@
 
 Creates a Fetcher using the given arguments
 
-**Parameters**
+#### Parameters
 
--   `apiUrl` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `apiUrl` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `subscriptionsClient` **SubscriptionClient** 
--   `subscriptionSentMessage` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+-   `subscriptionSentMessage` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 
 ## License
 

@@ -55,15 +55,15 @@ const client = new ApolloClient({
 // @flow
 
 import ApolloClient from "apollo-client";
-import {ApolloLink} from "apollo-link";
 import {createHttpLink} from "apollo-link-http";
 import {hasSubscription} from "@jumpn/utils-graphql";
 import {InMemoryCache} from "apollo-cache-inmemory";
+import {split} from "apollo-link";
 
 // see example 1
 import absintheSocketLink from "./absinthe-socket-link";
 
-const link = new ApolloLink.split(
+const link = split(
   operation => hasSubscription(operation.query),
   absintheSocketLink,
   createHttpLink({uri: "/graphql"})

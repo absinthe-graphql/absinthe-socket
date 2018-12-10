@@ -62,7 +62,7 @@ declare module "phoenix" {
     off(event: string, ref: number): void,
     onClose(callback: Function): void,
     onError(callback: (reason: string) => any): number,
-    onMessage(string: event, payload: mixed, ref: number): mixed,
+    onMessage(event: string, payload: mixed, ref: number): mixed,
     push(event: string, payload: mixed): Push,
     leave(timeout: number): Push
   }

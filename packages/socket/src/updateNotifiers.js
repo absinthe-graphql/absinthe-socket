@@ -1,8 +1,9 @@
 // @flow
 
-import type {AbsintheSocket, Notifier} from "./types";
+import type {AbsintheSocket} from "./types";
+import type {Notifier} from "./notifier/types";
 
-type Notifiers = Array<Notifier<any>>;
+type Notifiers = Array<Notifier<any, any>>;
 
 const updateNotifiers = (
   absintheSocket: AbsintheSocket,

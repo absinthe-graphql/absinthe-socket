@@ -1,13 +1,14 @@
 // @flow
 
-import type {Notifier, Observer} from "../types";
+import type {Notifier, Observer} from "./types";
 
-const observe = <Result>(
-  {observers, ...rest}: Notifier<Result>,
-  observer: Observer<Result>
+const observe = <Result, Variables: void | Object>(
+  {activeObservers, ...rest}: Notifier<Result, Variables>,
+  observer: Observer<Result, Variables>
 ) => ({
   ...rest,
-  observers: [...observers, observer]
+  activeObservers: [...activeObservers, observer],
+  isActive: true
 });
 
 export default observe;

@@ -54,6 +54,8 @@ $ yarn add <%= name %>
 ## Types
 
 ```flowtype
+type RequestStatus = "canceled" | "canceling" | "pending" | "sent" | "sending";
+
 // from @jumpn/utils-graphql
 type GqlRequest<Variables: void | Object = void> = {
   operation: string,
@@ -69,29 +71,30 @@ type GqlResponse<Data> = {
 // from @jumpn/utils-graphql
 type GqlOperationType = "mutation" | "query" | "subscription";
 
-type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
-
-type Observer<Result> = {
+type Observer<Result, Variables: void | Object = void> = {|
   onAbort?: (error: Error) => any,
   onCancel?: () => any,
   onError?: (error: Error) => any,
-  onStart?: (notifier: Notifier<Result>) => any,
+  onStart?: (notifier: Notifier<Result, Variables>) => any,
   onResult?: (result: Result) => any
-};
+|};
 
-type Notifier<Result> = {
-  observers: Array<Observer<Result>>,
+type Notifier<Result, Variables: void | Object = void> = {|
+  activeObservers: $ReadOnlyArray<Observer<Result, Variables>>,
+  canceledObservers: $ReadOnlyArray<Observer<Result, Variables>>,
+  isActive: boolean,
   operationType: GqlOperationType,
-  request: GqlRequest<*>,
+  request: GqlRequest<Variables>,
+  requestStatus: RequestStatus,
   subscriptionId?: string
-};
+|};
 
-type AbsintheSocket = {
+type AbsintheSocket = {|
   channel: Channel,
   channelJoinCreated: boolean,
   notifiers: Array<Notifier<any>>,
   phoenixSocket: PhoenixSocket
-};
+|};
 ```
 
 ## API

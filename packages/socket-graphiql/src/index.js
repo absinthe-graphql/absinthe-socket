@@ -1,6 +1,4 @@
 // @flow
 
-// @create-index
-
-export {default as SubscriptionsClient} from "./SubscriptionsClient.js";
-export {default as createFetcher} from "./createFetcher.js";
+export {default as createFetcher} from "./createFetcher";
+export {default as SubscriptionsClient} from "./SubscriptionsClient";

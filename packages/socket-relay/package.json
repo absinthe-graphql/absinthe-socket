@@ -31,12 +31,13 @@
   ],
   "dependencies": {
     "@absinthe/socket": "0.1.10",
+    "@babel/runtime": "7.2.0",
     "@jumpn/utils-graphql": "0.5.3",
     "@jumpn/utils-promise": "0.3.1",
-    "babel-runtime": "6.26.0",
-    "react-relay": "1.4.1"
+    "core-js": "2.6.0",
+    "react-relay": "1.7.0"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.9.3"
   }
 }

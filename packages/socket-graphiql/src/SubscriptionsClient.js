@@ -1,14 +1,14 @@
 // @flow
 
-import * as AbsintheSocket from "@absinthe/socket";
+import * as withAbsintheSocket from "@absinthe/socket";
 import {requestFromCompat} from "@jumpn/utils-graphql";
 import {Socket as PhoenixSocket} from "phoenix";
 
 import type {
-  AbsintheSocket as AbsintheSocketType,
+  AbsintheSocket,
   GqlRequest,
   SubscriptionPayload
-} from "@absinthe/socket/dist/types";
+} from "@absinthe/socket";
 import type {GqlRequestCompat} from "@jumpn/utils-graphql/dist/types";
 import type {SocketOpts} from "phoenix";
 
@@ -18,7 +18,7 @@ type SubscriptionCallback = (
 ) => void;
 
 const observe = (subscriptionsClient, notifier, callback) =>
-  AbsintheSocket.observe(subscriptionsClient.absintheSocket, notifier, {
+  withAbsintheSocket.observe(subscriptionsClient.absintheSocket, notifier, {
     onAbort: callback,
     onResult: result => callback(null, result)
   });
@@ -58,20 +58,20 @@ const findRequest = (subscriptionsClient, requestKey) => {
 };
 
 const cancel = (subscriptionsClient, notifier) => {
-  AbsintheSocket.cancel(subscriptionsClient.absintheSocket, notifier);
+  withAbsintheSocket.cancel(subscriptionsClient.absintheSocket, notifier);
 
   subscriptionsClient.requests.delete(notifier.request);
 };
 
 export default class SubscriptionsClient {
-  absintheSocket: AbsintheSocketType;
+  absintheSocket: AbsintheSocket;
 
   requestsCount = 0;
 
   requests: Map<GqlRequest<any>, string>;
 
   constructor(socketUrl: string, options: SocketOpts) {
-    this.absintheSocket = AbsintheSocket.create(
+    this.absintheSocket = withAbsintheSocket.create(
       new PhoenixSocket(socketUrl, options)
     );
 
@@ -86,7 +86,7 @@ export default class SubscriptionsClient {
     requestCompat: GqlRequestCompat<any>,
     callback: SubscriptionCallback
   ): string {
-    const notifier = AbsintheSocket.send(
+    const notifier = withAbsintheSocket.send(
       this.absintheSocket,
       requestFromCompat(requestCompat)
     );
