@@ -5,7 +5,7 @@ const requestStatuses = {
   canceling: ("canceling": "canceling"),
   pending: ("pending": "pending"),
   sent: ("sent": "sent"),
-  sending: ("subscribing": "subscribing")
+  sending: ("sending": "sending")
 };
 
 type RequestStatus = $Values<typeof requestStatuses>;
