@@ -1,7 +1,7 @@
 // @flow
 
 import {ApolloLink} from "apollo-link";
-import {cancel, send, toObservable, unobserve} from "@absinthe/socket";
+import {send, toObservable, unobserveOrCancel} from "@absinthe/socket";
 import {compose} from "flow-static-land/lib/Fun";
 import {print} from "graphql";
 
@@ -13,17 +13,17 @@ type ApolloOperation<Variables> = {|
   variables: Variables
 |};
 
+const unobserveOrCancelIfNeeded = (absintheSocket, notifier, observer) => {
+  if (notifier && observer) {
+    unobserveOrCancel(absintheSocket, notifier, observer);
+  }
+};
+
 const notifierToObservable = (absintheSocket, onError, onStart) => notifier =>
   toObservable(absintheSocket, notifier, {
     onError,
     onStart,
-    unsubscribe: observer => {
-      if (notifier.activeObservers.length === 1) {
-        cancel(absintheSocket, notifier);
-      } else {
-        unobserve(absintheSocket, notifier, observer);
-      }
-    }
+    unsubscribe: unobserveOrCancelIfNeeded
   });
 
 const getRequest = <Variables: Object>({
