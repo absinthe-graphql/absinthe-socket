@@ -12,11 +12,16 @@ import {unsubscribe} from "./subscription";
 import type {AbsintheSocket} from "./types";
 import type {Notifier} from "./notifier/types";
 
-const cancelNonPendingQueryOrMutation = (absintheSocket, notifier) =>
+const cancelQueryOrMutationSending = (absintheSocket, notifier) =>
   updateNotifiers(
     absintheSocket,
     notifierRefresh(notifierFlushCanceled(notifierCancel(notifier)))
   );
+
+const cancelQueryOrMutationIfSending = (absintheSocket, notifier) =>
+  notifier.requestStatus === requestStatuses.sending
+    ? cancelQueryOrMutationSending(absintheSocket, notifier)
+    : absintheSocket;
 
 const cancelPending = (absintheSocket, notifier) =>
   updateNotifiers(
@@ -27,7 +32,7 @@ const cancelPending = (absintheSocket, notifier) =>
 const cancelQueryOrMutation = (absintheSocket, notifier) =>
   notifier.requestStatus === requestStatuses.pending
     ? cancelPending(absintheSocket, notifier)
-    : cancelNonPendingQueryOrMutation(absintheSocket, notifier);
+    : cancelQueryOrMutationIfSending(absintheSocket, notifier);
 
 const unsubscribeIfNeeded = (absintheSocket, notifier) =>
   notifier.requestStatus === requestStatuses.sent
@@ -55,9 +60,9 @@ const cancelActive = (absintheSocket, notifier) =>
  * unsubscribing in case it holds a subscription request
  *
  * @example
- * import * as AbsintheSocket from "@absinthe/socket";
+ * import * as withAbsintheSocket from "@absinthe/socket";
  *
- * AbsintheSocket.cancel(absintheSocket, notifier);
+ * withAbsintheSocket.cancel(absintheSocket, notifier);
  */
 const cancel = (
   absintheSocket: AbsintheSocket,

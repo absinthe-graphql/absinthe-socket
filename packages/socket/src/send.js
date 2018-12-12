@@ -2,6 +2,8 @@
 
 import {append} from "@jumpn/utils-array";
 
+import type {GqlRequest} from "@jumpn/utils-graphql/compat/cjs/types";
+
 import joinChannel from "./joinChannel";
 import notifierCreate from "./notifier/create";
 import notifierFind from "./notifier/find";
@@ -12,7 +14,7 @@ import refreshNotifier from "./refreshNotifier";
 import requestStatuses from "./notifier/requestStatuses";
 import updateNotifiers from "./updateNotifiers";
 
-import type {AbsintheSocket, GqlRequest} from "./types";
+import type {AbsintheSocket} from "./types";
 import type {Notifier} from "./notifier/types";
 
 const connectOrJoinChannel = absintheSocket => {
@@ -60,7 +62,7 @@ const getExistentIfAny = (absintheSocket, request) => {
  * (see observe function)
  *
  * @example
- * import * as AbsintheSocket from "@absinthe/socket";
+ * import * as withAbsintheSocket from "@absinthe/socket";
  *
  * const operation = `
  *   subscription userSubscription($userId: ID!) {
@@ -74,7 +76,7 @@ const getExistentIfAny = (absintheSocket, request) => {
  * // This example uses a subscription, but the functionallity is the same for
  * // all operation types (queries, mutations and subscriptions)
  *
- * const notifier = AbsintheSocket.send(absintheSocket, {
+ * const notifier = withAbsintheSocket.send(absintheSocket, {
  *   operation,
  *   variables: {userId: 10}
  * });

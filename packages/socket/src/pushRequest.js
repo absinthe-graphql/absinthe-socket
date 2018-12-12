@@ -2,16 +2,23 @@
 
 import type {GqlResponse} from "@jumpn/utils-graphql/compat/cjs/types";
 
-import notifierNotifyActive from "./notifier/notifyActive";
+import notifierNotifyResultEvent from "./notifier/notifyResultEvent";
 import notifierNotifyStartEvent from "./notifier/notifyStartEvent";
 import notifierRemove from "./notifier/remove";
 import pushRequestUsing from "./pushRequestUsing";
+import refreshNotifier from "./refreshNotifier";
+import requestStatuses from "./notifier/requestStatuses";
 import updateNotifiers from "./updateNotifiers";
-import {createResultEvent} from "./notifier/event/eventCreators";
 import {subscribe} from "./subscription";
 
 import type {AbsintheSocket} from "./types";
 import type {Notifier} from "./notifier/types";
+
+const setNotifierRequestStatusSent = (absintheSocket, notifier) =>
+  refreshNotifier(absintheSocket, {
+    ...notifier,
+    requestStatus: requestStatuses.sent
+  });
 
 const onQueryOrMutationSucceed = (
   absintheSocket: AbsintheSocket,
@@ -20,7 +27,12 @@ const onQueryOrMutationSucceed = (
 ) =>
   updateNotifiers(
     absintheSocket,
-    notifierRemove(notifierNotifyActive(notifier, createResultEvent(response)))
+    notifierRemove(
+      notifierNotifyResultEvent(
+        setNotifierRequestStatusSent(absintheSocket, notifier),
+        response
+      )
+    )
   );
 
 const pushQueryOrMutation = (absintheSocket, notifier) =>

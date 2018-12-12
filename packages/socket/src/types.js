@@ -2,12 +2,6 @@
 
 import {Channel, Socket as PhoenixSocket} from "phoenix";
 
-import type {
-  GqlOperationType,
-  GqlRequest,
-  GqlResponse
-} from "@jumpn/utils-graphql/compat/cjs/types";
-
 import type {Notifier, Observer} from "./notifier/types";
 
 type AbsintheSocket = {|
@@ -15,11 +9,6 @@ type AbsintheSocket = {|
   channelJoinCreated: boolean,
   notifiers: Array<Notifier<any>>,
   phoenixSocket: PhoenixSocket
-|};
-
-type SubscriptionPayload<Data> = {|
-  result: GqlResponse<Data>,
-  subscriptionId: string
 |};
 
 type PushHandler<Response: Object> = {|
@@ -45,10 +34,4 @@ type NotifierPushHandler<Response: Object> = {|
   ) => any
 |};
 
-export type {
-  AbsintheSocket,
-  NotifierPushHandler,
-  Observer,
-  PushHandler,
-  SubscriptionPayload
-};
+export type {AbsintheSocket, NotifierPushHandler, Observer, PushHandler};

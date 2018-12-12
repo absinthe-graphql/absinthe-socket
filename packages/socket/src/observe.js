@@ -10,11 +10,11 @@ import type {Notifier, Observer} from "./notifier/types";
  * Observes given notifier using the provided observer
  *
  * @example
- * import AbsintheSocket from "@absinthe/socket"
+ * import * as withAbsintheSocket from "@absinthe/socket"
  *
  * const logEvent = eventName => (...args) => console.log(eventName, ...args);
  *
- * const updatedNotifier = AbsintheSocket.observe(absintheSocket, notifier, {
+ * const updatedNotifier = withAbsintheSocket.observe(absintheSocket, notifier, {
  *   onAbort: logEvent("abort"),
  *   onError: logEvent("error"),
  *   onStart: logEvent("open"),

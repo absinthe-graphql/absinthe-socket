@@ -2,11 +2,17 @@
 
 import {errorsToString as gqlErrorsToString} from "@jumpn/utils-graphql";
 
-import type {GqlError} from "@jumpn/utils-graphql/compat/cjs/types";
+import type {
+  GqlError,
+  GqlResponse
+} from "@jumpn/utils-graphql/compat/cjs/types";
+import type {Message} from "phoenix";
 
 import abortNotifier from "./abortNotifier";
+import notifierFind from "./notifier/find";
 import notifierFlushCanceled from "./notifier/flushCanceled";
 import notifierNotifyCanceled from "./notifier/notifyCanceled";
+import notifierNotifyResultEvent from "./notifier/notifyResultEvent";
 import notifierNotifyStartEvent from "./notifier/notifyStartEvent";
 import notifierRemove from "./notifier/remove";
 import notifierReset from "./notifier/reset";
@@ -20,6 +26,11 @@ import {createErrorEvent} from "./notifier/event/eventCreators";
 
 import type {AbsintheSocket, NotifierPushHandler} from "./types";
 import type {Notifier} from "./notifier/types";
+
+type SubscriptionPayload<Data> = {|
+  result: GqlResponse<Data>,
+  subscriptionId: string
+|};
 
 // TODO: improve this type
 type UnsubscribeResponse = {};
@@ -37,10 +48,7 @@ const onUnsubscribeSucceedCanceled = (absintheSocket, notifier) =>
 const onUnsubscribeSucceedActive = (absintheSocket, notifier) =>
   subscribe(
     absintheSocket,
-    refreshNotifier(
-      absintheSocket,
-      notifierReset(notifierFlushCanceled(notifier))
-    )
+    refreshNotifier(absintheSocket, notifierReset(notifier))
   );
 
 const createUnsubscribeError = message => new Error(`unsubscribe: ${message}`);
@@ -91,24 +99,21 @@ const unsubscribe = (
     })
   );
 
-const onSubscribeCanceled = (absintheSocket, notifier) =>
-  unsubscribe(absintheSocket, notifier);
-
 const onSubscribeSucceed = (absintheSocket, notifier, {subscriptionId}) => {
-  const updatedNotifier = refreshNotifier(absintheSocket, {
+  const subscribedNotifier = refreshNotifier(absintheSocket, {
     ...notifier,
     subscriptionId,
     requestStatus: requestStatuses.sent
   });
 
-  if (notifier.isActive) {
-    notifierNotifyStartEvent(updatedNotifier);
+  if (subscribedNotifier.isActive) {
+    notifierNotifyStartEvent(subscribedNotifier);
   } else {
-    onSubscribeCanceled(absintheSocket, updatedNotifier);
+    unsubscribe(absintheSocket, subscribedNotifier);
   }
 };
 
-const onSubscribeResponse = (
+const onSubscribe = (
   absintheSocket: AbsintheSocket,
   notifier: Notifier<any, any>,
   response: SubscriptionResponse
@@ -123,6 +128,28 @@ const onSubscribeResponse = (
 const subscribe = <Result, Variables: void | Object>(
   absintheSocket: AbsintheSocket,
   notifier: Notifier<Result, Variables>
-) => pushRequestUsing(absintheSocket, notifier, onSubscribeResponse);
+) => pushRequestUsing(absintheSocket, notifier, onSubscribe);
 
-export {subscribe, unsubscribe};
+const onDataMessage = (
+  absintheSocket: AbsintheSocket,
+  {payload}: Message<SubscriptionPayload<any>>
+) => {
+  const notifier = notifierFind(
+    absintheSocket.notifiers,
+    "subscriptionId",
+    payload.subscriptionId
+  );
+
+  if (notifier) {
+    notifierNotifyResultEvent(notifier, payload.result);
+  }
+};
+
+const dataMessageEventName = "subscription:data";
+
+const isDataMessage = (message: Message<>) =>
+  message.event === dataMessageEventName;
+
+export {isDataMessage, onDataMessage, subscribe, unsubscribe};
+
+export type {SubscriptionPayload};

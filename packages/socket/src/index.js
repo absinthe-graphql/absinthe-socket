@@ -15,3 +15,4 @@ export {default as unobserve} from "./unobserve";
 
 export type {AbsintheSocket} from "./types";
 export type {Notifier, Observer} from "./notifier/types";
+export type {SubscriptionPayload} from "./subscription";
