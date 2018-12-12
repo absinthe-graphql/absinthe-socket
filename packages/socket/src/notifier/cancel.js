@@ -2,25 +2,15 @@
 
 import type {Notifier} from "./types";
 
-const getCanceledObservers = ({activeObservers, canceledObservers}) =>
-  canceledObservers.length
-    ? [...activeObservers, ...canceledObservers]
-    : activeObservers;
-
-const cancelObservers = notifier => ({
-  ...notifier,
+const cancel = <Result, Variables: void | Object>({
+  activeObservers,
+  canceledObservers,
+  ...rest
+}: Notifier<Result, Variables>) => ({
+  ...rest,
+  isActive: false,
   activeObservers: [],
-  canceledObservers: getCanceledObservers(notifier)
+  canceledObservers: [...activeObservers, ...canceledObservers]
 });
-
-const cancelObserversIfNeeded = notifier =>
-  notifier.activeObservers.length > 0 ? cancelObservers(notifier) : notifier;
-
-const deactivate = notifier => ({...notifier, isActive: false});
-
-const cancel = <Result, Variables: void | Object>(
-  notifier: Notifier<Result, Variables>
-) =>
-  notifier.isActive ? cancelObserversIfNeeded(deactivate(notifier)) : notifier;
 
 export default cancel;
