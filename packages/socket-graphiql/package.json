@@ -1,6 +1,6 @@
 {
   "name": "@absinthe/socket-graphiql",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Socket GraphiQL Utilities",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
@@ -33,7 +33,7 @@
     "utils"
   ],
   "dependencies": {
-    "@absinthe/socket": "0.1.10",
+    "@absinthe/socket": "0.2.0",
     "@babel/runtime": "7.2.0",
     "@jumpn/utils-graphql": "0.6.0",
     "core-js": "2.6.0",
