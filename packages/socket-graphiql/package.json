@@ -35,7 +35,7 @@
   "dependencies": {
     "@absinthe/socket": "0.1.10",
     "@babel/runtime": "7.2.0",
-    "@jumpn/utils-graphql": "0.5.3",
+    "@jumpn/utils-graphql": "0.6.0",
     "core-js": "2.6.0",
     "phoenix": "1.4.0"
   },

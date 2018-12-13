@@ -81,8 +81,16 @@ const plugins = {
 const getCjsAndEsConfig = fileName => ({
   input: `${dirs.input}/${fileName}`,
   output: [
-    {file: `${dirs.output}/${fileName}`, format: "es", sourcemap: true},
-    {file: `${dirs.compat}/cjs/${fileName}`, format: "cjs", sourcemap: true}
+    {
+      file: `${dirs.output}/${fileName}`,
+      format: "es",
+      sourcemap: true
+    },
+    {
+      file: `${dirs.compat}/cjs/${fileName}`,
+      format: "cjs",
+      sourcemap: true
+    }
   ],
   plugins: [plugins.babel]
 });
