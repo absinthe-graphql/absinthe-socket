@@ -1,13 +1,29 @@
 // @flow
 
-import {cancel, observe, send} from "@absinthe/socket";
+import notifierFind from "@absinthe/socket/dist/notifier/find";
+import {observe, send, unobserveOrCancel} from "@absinthe/socket";
 import {createDeferred} from "@jumpn/utils-promise";
 import {getOperationType} from "@jumpn/utils-graphql";
 
-import type {AbsintheSocket} from "@absinthe/socket/compat/cjs/types";
+import type {AbsintheSocket} from "@absinthe/socket";
 import type {SubscribeFunction} from "react-relay";
 
 import subscriptions from "./subscriptions";
+
+const unobserveOrCancelIfNeeded = (absintheSocket, notifier, observer) => {
+  if (notifier) {
+    unobserveOrCancel(absintheSocket, notifier, observer);
+  }
+};
+
+const createDisposable = (absintheSocket, {request}, observer) => ({
+  dispose: () =>
+    unobserveOrCancelIfNeeded(
+      absintheSocket,
+      notifierFind(absintheSocket.notifiers, "request", request),
+      observer
+    )
+});
 
 const onStart = deferred => notifier => deferred.resolve(notifier);
 
@@ -18,12 +34,6 @@ const onAbort = (deferred, callback) => error => {
 
   deferred.reject(error);
 };
-
-const createDisposable = (absintheSocket, notifier) => ({
-  dispose: () => {
-    cancel(absintheSocket, notifier);
-  }
-});
 
 /**
  * Creates a Subscriber (Relay SubscribeFunction) using the given AbsintheSocket
@@ -48,18 +58,20 @@ const createSubscriber = (
 
   const notifier = send(absintheSocket, {operation, variables});
 
-  const disposable = createDisposable(absintheSocket, notifier);
-
   const deferred = createDeferred();
 
-  subscriptions.set(disposable, deferred.promise);
-
-  observe(absintheSocket, notifier, {
+  const observer = {
     onAbort: onAbort(deferred, OnUnrecoverableError),
     onError: onRecoverableError,
     onResult: (onNext: any),
     onStart: onStart(deferred)
-  });
+  };
+
+  observe(absintheSocket, notifier, observer);
+
+  const disposable = createDisposable(absintheSocket, notifier, observer);
+
+  subscriptions.set(disposable, deferred.promise);
 
   return disposable;
 };

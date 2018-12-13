@@ -12,6 +12,7 @@
 - [Examples](#examples)
 - [API](#api)
   - [createAbsintheSocketLink](#createabsinthesocketlink)
+    - [Parameters](#parameters)
 - [References](#references)
 - [License](#license)
 
@@ -66,15 +67,15 @@ const client = new ApolloClient({
 // @flow
 
 import ApolloClient from "apollo-client";
-import {ApolloLink} from "apollo-link";
 import {createHttpLink} from "apollo-link-http";
 import {hasSubscription} from "@jumpn/utils-graphql";
 import {InMemoryCache} from "apollo-cache-inmemory";
+import {split} from "apollo-link";
 
 // see example 1
 import absintheSocketLink from "./absinthe-socket-link";
 
-const link = new ApolloLink.split(
+const link = split(
   operation => hasSubscription(operation.query),
   absintheSocketLink,
   createHttpLink({uri: "/graphql"})
@@ -95,11 +96,11 @@ const client = new ApolloClient({
 Creates a terminating ApolloLink to request operations using given
 AbsintheSocket instance
 
-**Parameters**
+#### Parameters
 
 -   `absintheSocket` **AbsintheSocket** 
--   `onError` **$PropertyType&lt;Observer&lt;any>, `"onError"`>** 
--   `onStart` **$PropertyType&lt;Observer&lt;any>, `"onStart"`>** 
+-   `onError` **$ElementType&lt;Observer&lt;Result, Variables>, `"onError"`>** 
+-   `onStart` **$ElementType&lt;Observer&lt;Result, Variables>, `"onStart"`>** 
 
 ## References
 

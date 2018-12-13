@@ -1,8 +1,13 @@
 {
-  "plugins": ["transform-runtime"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties"
+  ],
   "presets": [
-    ["env", {"modules": false, "spec": true, "useBuiltIns": true}],
-    "stage-0",
-    "flow"
+    [
+      "@babel/preset-env",
+      {"modules": false, "spec": true, "useBuiltIns": "usage"}
+    ],
+    "@babel/preset-flow",
   ]
 }

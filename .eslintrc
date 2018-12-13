@@ -26,6 +26,7 @@ rules:
   no-shadow: off
   no-underscore-dangle: off
   no-unused-expressions: [error, {allowShortCircuit: true}]
+  no-use-before-define: warn
   no-useless-concat: off
   prefer-template: warn
   flowtype-errors/enforce-min-coverage: [warn, 80]

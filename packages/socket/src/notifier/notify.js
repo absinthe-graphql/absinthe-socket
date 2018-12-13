@@ -1,13 +1,21 @@
 // @flow
 
-import type {Event, Notifier} from "../types";
+import observerNotifyAll from "./observer/notifyAll";
 
-const getNotifier = (handlerName, data) => observer =>
-  observer[handlerName] && observer[handlerName](data);
+import type {Event, Notifier} from "./types";
 
-const getHandlerName = event => `on${event}`;
+const getObservers = ({activeObservers, canceledObservers}) => [
+  ...activeObservers,
+  ...canceledObservers
+];
 
-const notify = (notifier: Notifier<any>, event: Event, data: any) =>
-  notifier.observers.forEach(getNotifier(getHandlerName(event), data));
+const notify = <Result, Variables: void | Object>(
+  notifier: Notifier<Result, Variables>,
+  event: Event
+) => {
+  observerNotifyAll(getObservers(notifier), event);
+
+  return notifier;
+};
 
 export default notify;

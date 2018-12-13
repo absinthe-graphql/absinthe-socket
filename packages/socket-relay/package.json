@@ -7,7 +7,7 @@
   "react-native": "src/index",
   "scripts": {
     "version": "nps version",
-    "prepublish": "nps prepublish"
+    "prepack": "nps prepack"
   },
   "repository": {
     "type": "git",
@@ -31,12 +31,13 @@
   ],
   "dependencies": {
     "@absinthe/socket": "0.1.10",
-    "@jumpn/utils-graphql": "0.5.3",
+    "@babel/runtime": "7.2.0",
+    "@jumpn/utils-graphql": "0.6.0",
     "@jumpn/utils-promise": "0.3.1",
-    "babel-runtime": "6.26.0",
-    "react-relay": "1.4.1"
+    "core-js": "2.6.0",
+    "react-relay": "1.7.0"
   },
   "devDependencies": {
-    "nps": "5.7.1"
+    "nps": "5.9.3"
   }
 }

@@ -6,14 +6,19 @@ import commonjs from "rollup-plugin-commonjs";
 import globby from "globby";
 import pascalCase from "pascal-case";
 import resolve from "rollup-plugin-node-resolve";
-import uglify from "rollup-plugin-uglify";
-import {minify} from "uglify-es";
 
 // $FlowFixMe
 const pkg = require(`${process.cwd()}/package.json`);
 
+const dirs = {
+  input: "src",
+  output: "dist",
+  compat: "compat"
+};
+
 const plugins = {
   babel: babel({
+    configFile: "../../.babelrc",
     exclude: ["node_modules/**", "../../node_modules/**"],
     runtimeHelpers: true
   }),
@@ -70,23 +75,24 @@ const plugins = {
       phoenix: ["Ajax", "Channel", "LongPoll", "Presence", "Socket"]
     }
   }),
-  resolve: resolve(),
-  uglify: uglify({}, minify)
-};
-
-const dirs = {
-  input: "src",
-  output: "dist",
-  compat: "compat"
+  resolve: resolve()
 };
 
 const getCjsAndEsConfig = fileName => ({
   input: `${dirs.input}/${fileName}`,
   output: [
-    {file: `${dirs.output}/${fileName}`, format: "es", sourcemap: true},
-    {file: `${dirs.compat}/cjs/${fileName}`, format: "cjs", sourcemap: true}
+    {
+      file: `${dirs.output}/${fileName}`,
+      format: "es",
+      sourcemap: true
+    },
+    {
+      file: `${dirs.compat}/cjs/${fileName}`,
+      format: "cjs",
+      sourcemap: true
+    }
   ],
-  plugins: [plugins.babel, plugins.uglify]
+  plugins: [plugins.babel]
 });
 
 const sources = globby.sync("**/*js", {cwd: dirs.input});
@@ -107,7 +113,7 @@ export default [
       name: pascalCase(getUnscopedName(pkg)),
       sourcemap: true
     },
-    plugins: [plugins.babel, plugins.resolve, plugins.commonjs, plugins.uglify]
+    plugins: [plugins.babel, plugins.resolve, plugins.commonjs]
   },
   ...sources.map(getCjsAndEsConfig)
 ];

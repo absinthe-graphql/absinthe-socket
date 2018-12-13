@@ -1,21 +1,30 @@
 // @flow
 
 import {ApolloLink} from "apollo-link";
-import {cancel, send, toObservable} from "@absinthe/socket";
+import {send, toObservable, unobserveOrCancel} from "@absinthe/socket";
 import {compose} from "flow-static-land/lib/Fun";
-import {print} from "graphql/language/printer";
+import {print} from "graphql";
 
-import type {
-  AbsintheSocket,
-  GqlRequest,
-  Observer
-} from "@absinthe/socket/compat/cjs/types";
+import type {AbsintheSocket, GqlRequest, Observer} from "@absinthe/socket";
 import type {DocumentNode} from "graphql/language/ast";
 
-type ApolloOperation<Variables> = {
+type ApolloOperation<Variables> = {|
   query: DocumentNode,
   variables: Variables
+|};
+
+const unobserveOrCancelIfNeeded = (absintheSocket, notifier, observer) => {
+  if (notifier && observer) {
+    unobserveOrCancel(absintheSocket, notifier, observer);
+  }
 };
+
+const notifierToObservable = (absintheSocket, onError, onStart) => notifier =>
+  toObservable(absintheSocket, notifier, {
+    onError,
+    onStart,
+    unsubscribe: unobserveOrCancelIfNeeded
+  });
 
 const getRequest = <Variables: Object>({
   query,
@@ -25,39 +34,14 @@ const getRequest = <Variables: Object>({
   variables
 });
 
-const notifierToObservable = (absintheSocket, onError, onStart) => notifier => {
-  let notifierStarted;
-  let unsubscribed = false;
-
-  return toObservable(absintheSocket, notifier, {
-    onError,
-    onStart: notifierLatest => {
-      notifierStarted = notifierLatest;
-
-      if (unsubscribed) {
-        cancel(absintheSocket, notifierStarted);
-      }
-
-      onStart && onStart(notifierLatest);
-    },
-    unsubscribe: () => {
-      unsubscribed = true;
-
-      if (notifierStarted) {
-        cancel(absintheSocket, notifierStarted);
-      }
-    }
-  });
-};
-
 /**
  * Creates a terminating ApolloLink to request operations using given
  * AbsintheSocket instance
  */
-const createAbsintheSocketLink = (
+const createAbsintheSocketLink = <Result, Variables: void | Object>(
   absintheSocket: AbsintheSocket,
-  onError?: $PropertyType<Observer<*>, "onError">,
-  onStart?: $PropertyType<Observer<*>, "onStart">
+  onError?: $ElementType<Observer<Result, Variables>, "onError">,
+  onStart?: $ElementType<Observer<Result, Variables>, "onStart">
 ) =>
   new ApolloLink(
     compose(

@@ -1,5 +1,4 @@
 .*
-indexIgnore.sed
 readmeTemplate.ejs
 yarn.lock
 yarn-error.log
