@@ -38,7 +38,6 @@
     "flow-typed": "2.5.1",
     "globby": "8.0.1",
     "husky": "1.2.0",
-    "in-publish": "2.0.0",
     "lerna": "3.6.0",
     "lint-staged": "8.1.0",
     "pascal-case": "2.0.1",
