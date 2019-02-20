@@ -73,11 +73,11 @@
 
 ### Using [npm](https://docs.npmjs.com/cli/npm)
 
-    $ npm install --save @absinthe/socket
+    $ npm install --save phoenix @absinthe/socket
 
 ### Using [yarn](https://yarnpkg.com)
 
-    $ yarn add @absinthe/socket
+    $ yarn add phoenix @absinthe/socket
 
 ## Types
 

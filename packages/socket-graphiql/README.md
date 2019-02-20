@@ -20,11 +20,11 @@
 
 ### Using [npm](https://docs.npmjs.com/cli/npm)
 
-    $ npm install --save @absinthe/socket-graphiql
+    $ npm install --save phoenix @absinthe/socket-graphiql
 
 ### Using [yarn](https://yarnpkg.com)
 
-    $ yarn add @absinthe/socket-graphiql
+    $ yarn add phoenix @absinthe/socket-graphiql
 
 ## API
 

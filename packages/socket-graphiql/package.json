@@ -36,10 +36,12 @@
     "@absinthe/socket": "0.2.0",
     "@babel/runtime": "7.2.0",
     "@jumpn/utils-graphql": "0.6.0",
-    "core-js": "2.6.0",
-    "phoenix": "1.4.0"
+    "core-js": "2.6.0"
   },
   "devDependencies": {
     "nps": "5.9.3"
+  },
+  "peerDependencies": {
+    "phoenix": "^1.4.0"
   }
 }
