@@ -77,12 +77,15 @@ const absintheChannelName = "__absinthe__:control";
  *   new PhoenixSocket("ws://localhost:4000/socket")
  * );
  */
-const create = (phoenixSocket: PhoenixSocket): AbsintheSocket => {
+const create = (phoenixSocket: PhoenixSocket, options = {}): AbsintheSocket => {
   const absintheSocket: AbsintheSocket = {
     phoenixSocket,
+    absintheChannelName,
     channel: phoenixSocket.channel(absintheChannelName),
     channelJoinCreated: false,
-    notifiers: []
+    notifiers: [],
+    inactivityTimeout: null,
+    inactivityTimeoutDuration: options.inactivityTimeout || 0
   };
 
   phoenixSocket.onOpen(onConnectionOpen(absintheSocket));

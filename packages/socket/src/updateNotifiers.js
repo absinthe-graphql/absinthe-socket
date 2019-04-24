@@ -1,4 +1,5 @@
 // @flow
+import updateInactiveTimeout from "./updateInactiveTimeout";
 
 import type {AbsintheSocket} from "./types";
 import type {Notifier} from "./notifier/types";
@@ -11,7 +12,7 @@ const updateNotifiers = (
 ) => {
   absintheSocket.notifiers = updater(absintheSocket.notifiers);
 
-  return absintheSocket;
+  return updateInactiveTimeout(absintheSocket);
 };
 
 export default updateNotifiers;
