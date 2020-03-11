@@ -27,7 +27,14 @@ const setNotifierRequestStatusSending = (absintheSocket, notifier) =>
     requestStatus: requestStatuses.sending
   });
 
-const createRequestError = message => new Error(`request: ${message}`);
+const createRequestError = message => {
+  if (String(message) === '[object Object]') {
+    try { 
+      message = JSON.stringify(message, null, 2);
+    } catch (_) {}
+  }
+  return new Error(`request: ${message}`)
+};
 
 const onTimeout = (absintheSocket, notifier) =>
   notifierNotifyActive(
