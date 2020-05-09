@@ -35,7 +35,7 @@
     "@absinthe/socket": "0.2.1",
     "@babel/runtime": "7.2.0",
     "apollo-link": "1.2.5",
-    "core-js": "2.6.0",
+    "core-js": "^3.6.5",
     "flow-static-land": "0.2.8",
     "graphql": "14.0.2",
     "zen-observable": "0.8.11"

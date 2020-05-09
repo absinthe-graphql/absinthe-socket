@@ -33,7 +33,7 @@
     "@jumpn/utils-array": "0.3.4",
     "@jumpn/utils-composite": "0.7.0",
     "@jumpn/utils-graphql": "0.6.0",
-    "core-js": "2.6.0",
+    "core-js": "^3.6.5",
     "zen-observable": "0.8.11"
   },
   "devDependencies": {
