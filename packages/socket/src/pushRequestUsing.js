@@ -34,7 +34,7 @@ const createRequestError = message => {
   error.object = message;
 
   return error;
-}
+};
 
 const onTimeout = (absintheSocket, notifier) =>
   notifierNotifyActive(
