@@ -1,5 +1,9 @@
 # Absinthe Socket
 
+## Using with Apollo Client
+
+- [absinthe/apollo](https://hexdocs.pm/absinthe/apollo.html)
+
 ## Packages
 
 - [@absinthe/socket](packages/socket)
