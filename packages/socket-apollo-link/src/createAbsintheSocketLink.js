@@ -1,6 +1,6 @@
 // @flow
 
-import {ApolloLink} from "apollo-link";
+import {ApolloLink} from "@apollo/client/core";
 import {send, toObservable, unobserveOrCancel} from "@absinthe/socket";
 import {compose} from "flow-static-land/lib/Fun";
 import {print} from "graphql";
