@@ -28,7 +28,7 @@ const setNotifierRequestStatusSending = (absintheSocket, notifier) =>
   });
 
 const createRequestError = message => {
-  const error = new Error(`request: ${message}`);
+  const error = new Error(`request: ${JSON.stringify(message)}`);
   error.object = message;
 
   return error;
