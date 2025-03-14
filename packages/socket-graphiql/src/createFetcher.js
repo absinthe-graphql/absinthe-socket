@@ -16,10 +16,15 @@ const parseIfJson = text => {
 
 const responseToText = response => response.text();
 
-const postJson = (url: string, body: Object): Promise<string> =>
+const postJson = (
+  url: string,
+  body: Object,
+  headers?: Record<string, any>
+): Promise<string> =>
   fetch(url, {
     method: "post",
     headers: {
+      ...headers,
       Accept: "application/json",
       "Content-Type": "application/json"
     },
@@ -63,13 +68,16 @@ const createFetcher = (
 ) => {
   const state = {activeSubscriptionId: undefined};
 
-  return (gqlRequestCompat: GqlRequestCompat<any>) => {
+  return (
+    gqlRequestCompat: GqlRequestCompat<any>,
+    options: {headers?: Record<string, any>}
+  ) => {
     if (state.activeSubscriptionId) {
       subscriptionsClient.unsubscribe(state.activeSubscriptionId);
     }
 
     return getOperationType(gqlRequestCompat.query) !== "subscription"
-      ? postJson(apiUrl, gqlRequestCompat)
+      ? postJson(apiUrl, gqlRequestCompat, options.headers)
       : subscribeWithObservable(
           state,
           subscriptionsClient,
